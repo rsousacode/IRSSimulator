@@ -19,12 +19,15 @@ jobs:
     - name: Publish .NET Core Project
       run: dotnet publish IRSSimulator/IRSSimulator.csproj -c Release --output release --nologo
 
+    - name: Change base-tag in index.html from / to IRSSimulator
+      run: sed -i 's/<base href="\/" \/>/<base href="\/IRSSimulator\/" \/>/g' release/wwwroot/index.html
+    - name: Add .nojekyll file
+      run: touch release/wwwroot/.nojekyll
+    - name: Add .nojekyll file in _framework folder
+      run: touch release/wwwroot/_framework/.nojekyll
+
     - name: Uploading files to gh-pages branch
       uses: JamesIves/github-pages-deploy-action@4.1.4
       with:
         branch: gh-pages
         folder: release/wwwroot
-    - name: Change base-tag in index.html from / to IRSSimulator
-      run: sed -i 's/<base href="\/" \/>/<base href="\/IRSSimulator\/" \/>/g' release/wwwroot/index.html
-    - name: Add .nojekyll file
-      run: touch release/wwwroot/.nojekyll

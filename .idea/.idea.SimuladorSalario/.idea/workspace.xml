@@ -13,6 +13,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb0214e8-bac9-4fe3-8a64-97705206ed19" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SimuladorSalario/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SimuladorSalario/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IRSSimulator/wwwroot/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/IRSSimulator/wwwroot/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IRSSimulator/wwwroot/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/IRSSimulator/wwwroot/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
