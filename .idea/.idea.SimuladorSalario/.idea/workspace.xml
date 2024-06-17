@@ -13,7 +13,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb0214e8-bac9-4fe3-8a64-97705206ed19" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/main.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/main.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IRSSimulator/wwwroot/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/IRSSimulator/wwwroot/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +168,7 @@
       <updated>1718017588502</updated>
       <workItem from="1718017589570" duration="2000000" />
       <workItem from="1718626735194" duration="5512000" />
-      <workItem from="1718649283234" duration="5175000" />
+      <workItem from="1718649283234" duration="5500000" />
     </task>
     <servers />
   </component>
