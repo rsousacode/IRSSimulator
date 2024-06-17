@@ -358,7 +358,7 @@
   [SupplyParameterFromQuery(Name = "reduce_ss_25")]
   public bool Reduce25PercentSS { get; set; } = true;
 
-  [SupplyParameterFromQuery(Name = "reduce_ss_25")]
+  [SupplyParameterFromQuery(Name = "use_method_of_parcel")]
   public bool UseIRSMethodOfParcel { get; set; } = false;
 
   public bool IncludeIva { get; set; }
@@ -407,6 +407,7 @@
   }
 
   private decimal _yearlySalary;
+
   [SupplyParameterFromQuery(Name = "yearly")]
 
   public decimal YearlySalary
@@ -435,7 +436,6 @@
       _yearlySalary = _monthlySalary * MonthsPerYear;
     }
   }
-
 
 
   public List<Expense> Expenses { get; set; } = new();
