@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "IRSSimulator",
   "resources": {
-    "hash": "sha256-ib+VEZaHVpjOVYuv9kJ8Prf26YnWmyuPdQsspveXRwY=",
+    "hash": "sha256-o1DLoZd2uX7QJptqIqEzIv3zbdVxKCdHdPjjoNIdCDA=",
     "jsModuleNative": {
       "dotnet.native.8.0.6.suuomc2hr0.js": "sha256-YU6M9+jtDVnB8/wtrgIndOstzNh778Ls8g9XnbjorSk="
     },
@@ -17,7 +17,7 @@
       "icudt_no_CJK.dat": "sha256-L7sV7NEYP37/Qr2FPCePo5cJqRgTXRwGHuwF5Q+0Nfs="
     },
     "assembly": {
-      "IRSSimulator.wasm": "sha256-RjlOaE9Hu4UglJo8ikw+G0EhCQWHENHsZE2+nIieH5E=",
+      "IRSSimulator.wasm": "sha256-iVsbj6zdG6dJ5zjm9CG8xeSNmonEp1AbxRzMHELrmPM=",
       "Microsoft.AspNetCore.Components.Forms.wasm": "sha256-PBCqQOgsXTMxgr3gJzvyQgLJZo4gre2r3OJp3tSsZ4Y=",
       "Microsoft.AspNetCore.Components.wasm": "sha256-CAscrMXuz8u+YrtncQ2wIGSKEmg6cS5zVEOMkithKWo=",
       "Microsoft.AspNetCore.Components.Web.wasm": "sha256-HSzIo29U55J9bPKd1TqDrQl8yoejE+XMHK5UnLZahVk=",
