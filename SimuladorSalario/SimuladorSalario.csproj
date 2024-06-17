@@ -4,9 +4,9 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <WasmEnableSIMD>true</WasmEnableSIMD>
+<!--        <WasmEnableSIMD>true</WasmEnableSIMD>
         <RunAOTCompilation>true</RunAOTCompilation>
-        <EmccMaximumHeapSize>268435456</EmccMaximumHeapSize>
+        <EmccMaximumHeapSize>268435456</EmccMaximumHeapSize>-->
 
     </PropertyGroup>
 
