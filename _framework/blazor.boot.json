@@ -1,7 +1,7 @@
 {
-  "mainAssemblyName": "SimuladorSalario",
+  "mainAssemblyName": "IRSSimulator",
   "resources": {
-    "hash": "sha256-Fgwfvbof+p4qBqkDHZM5vKtmBK5svTdMhAgEKtewdQE=",
+    "hash": "sha256-MKMGVhutErz6+hyxWTOrVYNJWOAml6TeZsXDntXMUec=",
     "jsModuleNative": {
       "dotnet.native.8.0.6.suuomc2hr0.js": "sha256-YU6M9+jtDVnB8/wtrgIndOstzNh778Ls8g9XnbjorSk="
     },
@@ -17,6 +17,7 @@
       "icudt_no_CJK.dat": "sha256-L7sV7NEYP37/Qr2FPCePo5cJqRgTXRwGHuwF5Q+0Nfs="
     },
     "assembly": {
+      "IRSSimulator.wasm": "sha256-U9WneYcUHO7rKC4VB9l5D6bd6gqK/NAbo3+eNWjU4Nw=",
       "Microsoft.AspNetCore.Components.Forms.wasm": "sha256-PBCqQOgsXTMxgr3gJzvyQgLJZo4gre2r3OJp3tSsZ4Y=",
       "Microsoft.AspNetCore.Components.wasm": "sha256-CAscrMXuz8u+YrtncQ2wIGSKEmg6cS5zVEOMkithKWo=",
       "Microsoft.AspNetCore.Components.Web.wasm": "sha256-HSzIo29U55J9bPKd1TqDrQl8yoejE+XMHK5UnLZahVk=",
@@ -32,7 +33,6 @@
       "Microsoft.Extensions.Primitives.wasm": "sha256-Ms2HR5Gpug/0uRAzdk4SUNT76Ml3CjFv9Jo+dUIMGac=",
       "Microsoft.JSInterop.wasm": "sha256-DOtnQ3+rR9fdahebbFqXxx60H7B8jR03AaYj4y/r7z4=",
       "Microsoft.JSInterop.WebAssembly.wasm": "sha256-nJo9AftA2/mHxtXapqHsgjzQgIHOpue2DnVtxkgTSME=",
-      "SimuladorSalario.wasm": "sha256-/dFEnFzVaQeeTc54y2SMrZbKBgKp5bTTHnqi0eKdQmE=",
       "System.Collections.Concurrent.wasm": "sha256-/O1ulyYofVguqwKCP3dqj66apYJZn+bEwbhesJw1AJM=",
       "System.Collections.NonGeneric.wasm": "sha256-WEw+lFTNSSWH665l4iDqkm/VU9swchaL3D1iqP6Pn/I=",
       "System.Collections.Specialized.wasm": "sha256-7ATi7lZHjPEe6fPa2Bv57DTx9YgYbkmlaKNopge3d7c=",
