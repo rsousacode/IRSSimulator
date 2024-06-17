@@ -1,0 +1,518 @@
+﻿@page "/"
+@using PortugalSalarySimulator.Features
+<PageTitle>Simulador Salário</PageTitle>
+<div class="row ">
+</div>
+<div class="row">
+  <div class="col py-4  blue-bg">
+    <h3>Configurações</h3>
+    <hr>
+    <div class="row">
+      <div class="row">
+        <div class="form-group col">
+          <label for="ss_tax">Taxa Segurança Social</label>
+          <InputNumber id="ss_tax" class="form-control" @bind-Value="@SocialSecurityTax"></InputNumber>
+        </div>
+      </div> 
+      <div class="row">
+        <div class="form-group col">
+          <label for="perc_gross_for_ss">(%) do bruto para cálculo da SS</label>
+          <InputNumber id="perc_gross_for_ss" class="form-control" @bind-Value="@SocialSecurityGrossPercent"></InputNumber>
+        </div>
+      </div>
+      @if (!UseIRSMethodOfParcel)
+      {
+        <div class="row">
+          <div class="form-group col">
+            <label for="perc_gross_for_irs">(%) do bruto para cálculo do IRS</label>
+            <InputNumber id="perc_gross_for_irs" class="form-control" @bind-Value="@IRSGrossPercent"></InputNumber>
+          </div>
+        </div>
+      }
+      <div class="row">
+        <div class="form-group col">
+          <label for="dependents_count">Dependentes</label>
+          <InputNumber id="dependents_count" class="form-control" @bind-Value="@Dependents"></InputNumber>
+        </div>
+      </div>
+      @*<div class="row">
+        <div class="form-group col">
+          <label for="">Meses por ano assumidos</label>
+          <InputNumber class="form-control" @bind-Value="@MonthsPerYear"></InputNumber>
+        </div>
+      </div>*@
+      <div class="row">
+        <div class="col ml-2">
+          <div class="row">
+            <div class="col mt-2">
+              <div class="form-check">
+                <InputCheckbox id="use_parcel_method" class="form-check-input" @bind-Value="@UseIRSMethodOfParcel"></InputCheckbox>
+                <label class="form-check-label" for="use_parcel_method">
+                  Método parcela a abater (IRS)
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mt-2">
+              <div class="form-check">
+                <InputCheckbox id="reduce_25_percent_ss" class="form-check-input" @bind-Value="@Reduce25PercentSS"></InputCheckbox>
+                <label class="form-check-label" for="reduce_25_percent_ss">
+                  Reduzir em 25% a SS
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mt-2">
+              <div class="form-check">
+                <InputCheckbox id="divide_gross_by_2" class="form-check-input" @bind-Value="@DivideScale"></InputCheckbox>
+                <label class="form-check-label" for="divide_gross_by_2">
+                  Dividir grosso por 2 (Casados)
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="col py-4  pink-bg">
+    <h3>Brutos</h3>
+    <hr>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Tempo</th>
+        <th scope="col">€</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Ano</td>
+        <td class="col-sm-4">
+          <InputNumber class="form-control" @bind-Value="@YearlySalary"></InputNumber>
+        </td>
+        <td>@NumberToString(YearlySalary)</td>
+      </tr>
+      <tr>
+        <td>Mês</td>
+        <td class="col-sm-4">
+          <InputNumber class="form-control" @bind-Value="@MonthlySalary"></InputNumber>
+        </td>
+        <td>@NumberToString(MonthlySalary)</td>
+
+      </tr>
+      <tr>
+        <td>Dia</td>
+        <td class="col-sm-4">
+          <InputNumber class="form-control" @bind-Value="@DailySalary"></InputNumber>
+        </td>
+        <td>@NumberToString(DailySalary)</td>
+
+      </tr>
+      <tr>
+        <td>Hora</td>
+        <td class="col-sm-4">
+          <InputNumber class="form-control" @bind-Value="@HourlySalary"></InputNumber>
+        </td>
+        <td>@NumberToString(HourlySalary)</td>
+
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="col py-4  blue-bg">
+    <h3>Líquido</h3>
+    <hr>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Tipo</th>
+        <th scope="col">Total</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Ano</td>
+        <td>@(NumberToString(@CalculatedNetYearlySalary))</td>
+      </tr>
+      <tr>
+        <td>Mês</td>
+        <td>@(NumberToString(CalculatedNetMonthlySalary))</td>
+      </tr>
+      <tr>
+        <td>Mês (14 meses no ano)</td>
+        <td>@(NumberToString(CalculatedNetYearlySalary / 14))</td>
+      </tr>
+      <tr>
+        <td>Mês (15 meses no ano)</td>
+        <td>@(NumberToString(CalculatedNetYearlySalary / 15))</td>
+      </tr>
+
+      <tr>
+        <td>Dia</td>
+        <td>@(NumberToString(CalculatedNetDailySalary))</td>
+      </tr>
+      <tr>
+        <td>Hora</td>
+        <td>@(NumberToString(CalculatedNetHourlySalary))</td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+  <div class="col py-4  pink-bg">
+    <h3>Taxas</h3>
+    <hr>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Imposto Calculado</th>
+        <th scope="col">Total</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>IRS</td>
+        <td>@(NumberToString(CalculatedIRSTotal))</td>
+      </tr>
+      <tr>
+        <td>Segurança Social</td>
+        <td>@(NumberToString(CalculatedSSTotal))</td>
+      </tr>
+      @{
+        var totalTax = GetTotalTaxesPercent();
+      }
+      @if (totalTax != string.Empty)
+      {
+        <tr>
+          <td>Total (%)</td>
+          <td>@totalTax</td>
+        </tr>
+      }
+
+
+      </tbody>
+    </table>
+
+
+  </div>
+</div>
+
+
+
+
+<div class="row mt-5 ">
+  <div class="col py-4  pink-bg">
+    <h3>Despesas</h3>
+    <p>(Regime simplificado)</p>
+    <hr>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Tempo</th>
+        <th scope="col">€</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Ano</td>
+        <td class="col-sm-4">
+          @NumberToString(YearlySalary * (1 - (IRSGrossPercent / 100)))
+        </td>
+      </tr>
+      <tr>
+        <td>Mês</td>
+        <td class="col-sm-4">
+          @NumberToString(MonthlySalary * (1 - (IRSGrossPercent / 100)))
+        </td>
+
+      </tr>
+      <tr>
+        <td>Dia</td>
+        <td class="col-sm-4">
+          @NumberToString(DailySalary * (1 - (IRSGrossPercent / 100)))
+        </td>
+
+      </tr>
+      <tr>
+        <td>Hora</td>
+        <td class="col-sm-4">
+          @NumberToString(HourlySalary * (1 - (IRSGrossPercent / 100)))
+        </td>
+
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col py-4 blue-bg">
+    <h3>2024</h3>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Mês</th>
+        <th scope="col">Dias úteis</th>
+        <th>Grosso</th>
+        <th>Liquido</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      @for (var index = 0; index < MonthNames.Length; index++)
+      {
+        var month = new DateTime(2024, index + 1, 1).StartOfMonth();
+        var workingDays = DateExtensions.WorkDayBetween(month.StartOfMonth(), month.EndOfMonth()).Count();
+        var monthName = MonthNames[index];
+        <tr>
+          <td>@monthName</td>
+          <td>@workingDays</td>
+          <td>@(NumberToString(workingDays * DailySalary))</td>
+          <td>@(NumberToString(workingDays * CalculatedNetDailySalary))</td>
+        </tr>
+      }
+
+      </tbody>
+    </table>
+  </div>
+  <div class="col py-4  ping-bg">
+    <h3>Escalões IRS</h3>
+    <table class="table">
+      <tbody>
+      <tr class="row-1">
+        <td class="column-1">Escalão</td><td class="column-2">Rendimento sujeito a imposto</td><td class="column-3">Taxa normal </td><td class="column-4">Parcela a abater</td>
+      </tr>
+      <tr class="row-2 @((int) IRS.GetIrsScale(YearlySalary, DivideScale, Dependents) == 1 ? "font-weight-bold" : "")">
+        <td class="column-1">1.º</td><td class="column-2">Até 7 479 €</td>
+        <td class="col-sm-2">
+          <InputNumber @bind-Value="@IRS.Configs[0].Tax"></InputNumber>
+        </td><td class="column-4">0,00 €</td>
+      </tr>
+      <tr class="row-3 @((int) IRS.GetIrsScale(YearlySalary, DivideScale, Dependents) == 2 ? "font-weight-bold" : "")">
+        <td class="column-1 bold">2.º</td><td class="column-2">Mais de 7 479 € até 11 284 €</td>
+        <td class="col-sm-2">
+          <InputNumber @bind-Value="@IRS.Configs[1].Tax"/>
+        </td><td class="column-4">486,14 €</td>
+      </tr>
+      <tr class="row-4 @((int) IRS.GetIrsScale(YearlySalary, DivideScale, Dependents) == 3 ? "font-weight-bold" : "")">
+        <td class="column-1">3.º</td><td class="column-2">Mais de 11 284 € até 15 992 €</td>
+        <td class="col-sm-2">
+          <InputNumber @bind-Value="@IRS.Configs[2].Tax"/>
+        </td><td class="column-4">1 106,73 €</td>
+      </tr>
+      <tr class="row-5 @((int) IRS.GetIrsScale(YearlySalary, DivideScale, Dependents) == 4 ? "font-weight-bold" : "")">
+        <td class="column-1">4.º</td><td class="column-2">Mais de 15 992 € até 20 700 € </td>
+        <td class="col-sm-2">
+          <InputNumber @bind-Value="@IRS.Configs[3].Tax"/>
+        </td><td class="column-4">1 426,65 €</td>
+      </tr>
+      <tr class="row-6 @((int) IRS.GetIrsScale(YearlySalary, DivideScale, Dependents) == 5 ? "font-weight-bold" : "")">
+        <td class="column-1">5.º</td><td class="column-2">Mais de 20 700 € até 26 355 €</td>
+        <td class="col-sm-2">
+          <InputNumber @bind-Value="@IRS.Configs[4].Tax"/>
+        </td><td class="column-4">2 772,14 €</td>
+      </tr>
+      <tr class="row-7 @((int) IRS.GetIrsScale(YearlySalary, DivideScale, Dependents) == 6 ? "font-weight-bold" : "")">
+        <td class="column-1">6.º</td><td class="column-2">Mais de 26 355 € até 38 632 €</td>
+        <td class="col-sm-2">
+          <InputNumber @bind-Value="@IRS.Configs[5].Tax"/>
+        </td><td class="column-4">3 299,12 €</td>
+      </tr>
+      <tr class="row-8 @((int) IRS.GetIrsScale(YearlySalary, DivideScale, Dependents) == 7 ? "font-weight-bold" : "")">
+        <td class="column-1">7.º</td><td class="column-2">Mais de 38 632 € até 50 483 €</td>
+        <td class="col-sm-2">
+          <InputNumber @bind-Value="@IRS.Configs[6].Tax"/>
+        </td><td class="column-4">5 810,25 €</td>
+      </tr>
+      <tr class="row-9 @((int) IRS.GetIrsScale(YearlySalary, DivideScale, Dependents) == 8 ? "font-weight-bold" : "")">
+        <td class="column-1">8.º</td><td class="column-2">Mais de 50 483 até 78 834€</td>
+        <td class="col-sm-2">
+          <InputNumber @bind-Value="@IRS.Configs[7].Tax"/>
+        </td><td class="column-4">6 567,33 €</td>
+      </tr>
+      <tr class="row-10 @((int) IRS.GetIrsScale(YearlySalary, DivideScale, Dependents) == 9 ? "font-weight-bold" : "")">
+        <td class="column-1">9.º</td><td class="column-2">Mais de 78 834 €</td>
+        <td class="col-sm-2">
+          <InputNumber @bind-Value="@IRS.Configs[8].Tax"/>
+        </td><td class="column-4">8 932,68 €</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+@code {
+  string[] MonthNames = new string[] {"January", "February", "March", "April", "May",
+    "June", "July", "August", "September", "October", "November", "December"};
+
+  [SupplyParameterFromQuery(Name = "reduce_ss_25")]
+  public bool Reduce25PercentSS { get; set; } = true;
+
+  [SupplyParameterFromQuery(Name = "reduce_ss_25")]
+  public bool UseIRSMethodOfParcel { get; set; } = false;
+
+  public bool IncludeIva { get; set; }
+
+  [SupplyParameterFromQuery(Name = "divide_scale")]
+  public bool DivideScale { get; set; } = true;
+
+  public decimal SocialSecurityTax { get; set; } = 25m;
+
+  public decimal SocialSecurityGrossPercent { get; set; } = 80;
+  
+  public decimal IRSGrossPercent { get; set; } = 75;
+  
+  public int MonthsPerYear { get; set; } = 12;
+
+  private decimal _monthlySalary;
+
+  [SupplyParameterFromQuery(Name = "monthly")]
+
+  public decimal MonthlySalary
+  {
+    get => _monthlySalary;
+    set
+    {
+      _monthlySalary = value;
+      _yearlySalary = value * MonthsPerYear;
+      _dailySalary = value / 21;
+      _hourlySalary = _dailySalary / 8;
+    }
+  }
+
+  private decimal _dailySalary;
+
+  [SupplyParameterFromQuery(Name = "daily")]
+
+  public decimal DailySalary
+  {
+    get => _dailySalary;
+    set
+    {
+      _dailySalary = value;
+      _hourlySalary = value / 8;
+      _monthlySalary = _dailySalary * 21;
+      _yearlySalary = _monthlySalary * MonthsPerYear;
+    }
+  }
+
+  private decimal _yearlySalary;
+  [SupplyParameterFromQuery(Name = "yearly")]
+
+  public decimal YearlySalary
+  {
+    get { return _yearlySalary; }
+    set
+    {
+      _yearlySalary = value;
+      _monthlySalary = value / MonthsPerYear;
+      _dailySalary = _monthlySalary / 21;
+      _hourlySalary = _dailySalary / 8;
+    }
+  }
+
+  private decimal _hourlySalary;
+    
+  [SupplyParameterFromQuery(Name = "hourly")]
+  public decimal HourlySalary
+  {
+    get { return _hourlySalary; }
+    set
+    {
+      _hourlySalary = value;
+      _dailySalary = _hourlySalary * 8;
+      _monthlySalary = _dailySalary * 21;
+      _yearlySalary = _monthlySalary * MonthsPerYear;
+    }
+  }
+
+
+
+  public List<Expense> Expenses { get; set; } = new();
+
+
+  public string NumberToString(decimal n, bool isPercent = false)
+  {
+    var symbol = isPercent ? "%" : "€";
+    return $"{n:# ###.00} {symbol}";
+  }
+
+
+  public int Dependents { get; set; } = 0;
+
+
+
+  public decimal CalculatedIRSTotal
+  {
+    get
+    {
+      if (UseIRSMethodOfParcel)
+      {
+        var scale = IRS.GetIrsScale(YearlySalary, DivideScale, Dependents);
+        if (scale == 0) return 0;
+        var scaleData = IRS.Configs.FirstOrDefault(x => x.Scale == scale)!;
+        return YearlySalary * (scaleData.Tax / 100m) - scaleData.ParcelaAbater;
+      }
+      else
+      {
+        var scale = IRS.GetIrsScale(YearlySalary, DivideScale, Dependents);
+        var scaleData = IRS.Configs.FirstOrDefault(x => x.Scale == scale)!;
+
+        var irs = (YearlySalary * (IRSGrossPercent / 100)) * (scaleData.Tax / 100);
+        return irs;
+
+      }
+
+    }
+  }
+
+  public decimal CalculatedIVATotal => YearlySalary * 0.23m;
+
+  public string GetTotalTaxesPercent()
+  {
+    if (YearlySalary == 0)
+    {
+      return string.Empty;
+    }
+
+    var dec = 100 - ((CalculatedNetYearlySalary / YearlySalary) * 100);
+    return NumberToString(dec, true);
+  }
+
+  public decimal CalculatedSSTotal
+  {
+    get
+    {
+      var rendimentoRelevante = YearlySalary * (SocialSecurityGrossPercent / 100);
+      var totalTax = rendimentoRelevante * (SocialSecurityTax / 100);
+      return Reduce25PercentSS ? totalTax - (totalTax * 0.25m) : totalTax;
+    }
+  }
+
+  public decimal CalculatedNetYearlySalary
+  {
+    get
+    {
+      var calculatedIva = IncludeIva ? YearlySalary * 0.23m : 0;
+      return YearlySalary - CalculatedIRSTotal - CalculatedSSTotal - calculatedIva;
+    }
+  }
+  
+  public decimal CalculatedNetMonthlySalary => CalculatedNetYearlySalary / MonthsPerYear;
+  public decimal CalculatedNetDailySalary => CalculatedNetMonthlySalary / 21;
+  public decimal CalculatedNetHourlySalary => CalculatedNetDailySalary / 8;
+
+
+
+
+}
